@@ -17,15 +17,17 @@ class DogHouse(db.Model):
     def __repr__(self):
         return f"<DogHouse {self.name}>"
     
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
+    # def save(self):
+    #     db.session.add(self)
+    #     db.session.commit()
     
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
+    # def delete(self):
+    #     db.session.delete(self)
+    #     db.session.commit()
     
-    def update(self, name, location, description):
-        self.name=name
-        self.description=description
+    # def update(self, name, location, description):
+    #     self.name=name
+    #     self.description=description
+
+    #     db.session.commit()
 

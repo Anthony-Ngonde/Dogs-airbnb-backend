@@ -39,26 +39,53 @@ class DogHousesResource(Resource):
             'description': doghouse.description
         } for doghouse in doghouses])
     
-    
+
 
     def post(self):
         """Book a doghouse"""
-        pass
+        args = doghouse_parser.parse_args()
+        new_doghouse = DogHouse(
+            name = args['name'],
+            location = args['location'],
+            description = args['description']
+        )
+
+        db.session.add(new_doghouse)
+        db.session.commit()
+        return {"message": "Doghouse booked successfully"}
 
 
 
 class DogHouseResource(Resource):
     def get(self,id):
         """Get a doghouse by id"""
-        pass
+        doghouse = DogHouse.query.get_or_404(id)
+        return jsonify({
+            'id': doghouse.id,
+            'name': doghouse.name,
+            'location': doghouse.location,
+            'description': doghouse.description
+        })
+    
 
     def put(self,id):
         """Update a doghouse by id"""
-        pass
+        args = doghouse_parser.parse_args()
+        doghouse = DogHouse.query.get_or_404(id)
+        doghouse.name = args['name']
+        doghouse.location = args['location']
+        doghouse.description = args['description']
+        db.session.commit()
+        return {"message": "Doghouse updated successfully"}
+
+
 
     def delete(self,id):
         """Delete a doghouse by id"""
-        pass
+        doghouse = DogHouse.query.get_or_404(id)
+        db.session.delete(doghouse)
+        db.session.commit()
+        return {"message": "Doghouse deleted successfully"}
 
 
 
