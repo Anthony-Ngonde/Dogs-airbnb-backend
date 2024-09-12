@@ -3,12 +3,15 @@ from flask_restful import Api, Resource, reqparse
 from config import DevConfig
 from models import DogHouse
 from exts import db
+from flask_migrate import Migrate
 
 
 app=Flask(__name__)
 app.config.from_object(DevConfig)
 
 db.init_app(app)
+
+migrate = Migrate(app,db)
 
 api=Api(app)
 
@@ -24,6 +27,16 @@ doghouse_parser.add_argument('description', type=str, required=True, help="Descr
 class HelloResource(Resource):
     def get(self):
         return{"message":"Hello World"}
+    
+@api.route('/signup')
+class SignUp(Resource):
+    def post(self):
+        pass
+
+@api.route('/login')
+class Login(Resource):
+    def post(self):
+        pass
     
 
 class DogHousesResource(Resource):
